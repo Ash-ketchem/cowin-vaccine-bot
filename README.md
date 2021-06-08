@@ -28,7 +28,7 @@ $ 𝘔𝘢𝘹𝘪𝘮𝘶𝘮 𝘳𝘦𝘶𝘴𝘦 𝘰𝘧 𝘢𝘶𝘵𝘩 �
 1 . Polls cowin site for available vaccine slots according to your district or pincode.
 
 2 . Shedules vaccine apponitment for all beneficiaries linked to the given mobile number at random centers with slot availabilty.  
-     => Ｔｈａｔ＇ｓ  ｎｏｔ  ｍｕｃｈ ｕｓｅｆｕｌ 😒 
+     => T̳h̳a̳t̳'̳s̳ ̳n̳o̳t̳ ̳m̳u̳c̳h̳ ̳u̳s̳e̳f̳u̳l̳ 😒 🤦‍♂️
 
     To solve this issue a lot of filtering options are given to customize the search ::
     
