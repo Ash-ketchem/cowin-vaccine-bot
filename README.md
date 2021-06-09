@@ -66,7 +66,7 @@ $ 𝘔𝘢𝘹𝘪𝘮𝘶𝘮 𝘳𝘦𝘶𝘴𝘦 𝘰𝘧 𝘢𝘶𝘵𝘩 �
   
   3 . clone this repo :  
   
-         pkg install git && git clone this repo
+         pkg install git && git clone https://github.com/Ash-ketchem/cowin-vaccine-bot.git
          
   4 . install requirements :
          cd to the path where you have cloned this repo
