@@ -438,7 +438,7 @@ class cowin():
 
 
 
-def getDistrictId(state='kerala',district='kottayam',lat=9.61,long=76.53):      # helper function to create a list of prefered vaccine centers near your place and feed it to the program
+def getDistrictId(state,district,lat,long):      # helper function to create a list of prefered vaccine centers near your place and feed it to the program
                                                                                 # latitude and longitude of your place is needed
     headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0',
@@ -483,20 +483,20 @@ def main():
         please read the README.MD
 
         '''
-    parser.add_argument( '-m',  dest='mobile_no',     help='mobile number')
-    parser.add_argument( '-o',  dest='otp_mode',      help='otp mode(a:automatic/m:manual)', default='a')
-    parser.add_argument( '-d',  dest='dose',          help='dose num', default=1)
-    parser.add_argument( '-c',  dest='dist_id',       help='district id', default=304)
-    parser.add_argument( '-t',  dest='time',          help='time for appointment', type=int, default=0)
-    parser.add_argument( '--t', dest='test',          help='test run', action='store_true')
-    parser.add_argument( '-v',  dest='verbose',       help='verbose output', action='store_true')
-    parser.add_argument( '-p',  dest='preferences',   type=int,help='prefered centers(ID)', nargs='*')
-    parser.add_argument( '--v', dest='vaccine',       help='prefered vaccines', nargs='*')
-    parser.add_argument( '-b',  dest='people',        help='list of beneficiaries', nargs='*')
-    parser.add_argument( '--d', dest='booking_dates', help='list of vaccine booking dates', nargs='*', type=int)
-    parser.add_argument( '--l', dest='list',          help='get district id(state,district) and vaccine centers near you', nargs=4)
-    parser.add_argument( '-f',  dest='file_data',     help='load previous data from file', action='store_true')
-    parser.add_argument( '--p', dest='pincode',       help='pincode')
+    parser.add_argument( '-m',  dest = 'mobile_no',     help= 'mobile number')
+    parser.add_argument( '-o',  dest = 'otp_mode',      help= 'otp mode(a:automatic/m:manual)', default = 'a')
+    parser.add_argument( '-d',  dest = 'dose',          help= 'dose num', default = 1)
+    parser.add_argument( '-c',  dest = 'dist_id',       help= 'district id', default = 304)
+    parser.add_argument( '-t',  dest = 'time',          help= 'time for appointment', type = int, default = 0)
+    parser.add_argument( '--t', dest = 'test',          help= 'test run', action = 'store_true')
+    parser.add_argument( '-v',  dest = 'verbose',       help= 'verbose output', action = 'store_true')
+    parser.add_argument( '-p',  dest = 'preferences',   type= int,help = 'prefered centers(ID)', nargs = '*')
+    parser.add_argument( '--v', dest = 'vaccine',       help= 'prefered vaccines', nargs = '*')
+    parser.add_argument( '-b',  dest = 'people',        help= 'list of beneficiaries', nargs = '*')
+    parser.add_argument( '--d', dest = 'booking_dates', help= 'list of vaccine booking dates', nargs = '*', type = int)
+    parser.add_argument( '--l', dest = 'list',          help= 'get district id and vaccine centers near you', nargs = 4)
+    parser.add_argument( '-f',  dest = 'file_data',     help= 'load previous data from file', action = 'store_true')
+    parser.add_argument( '--p', dest = 'pincode',       help= 'pincode')
 
     args = parser.parse_args()
 
