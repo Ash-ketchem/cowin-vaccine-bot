@@ -477,6 +477,19 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
 
 
 def main():
+    
+        print('''
+
+              ██████
+            ▒██    ▒
+            ░ ▓██▄
+              ▒   ██▒
+            ▒██████▒▒
+            ▒ ▒▓▒ ▒ ░
+            ░ ░▒  ░
+            ░  ░  ░
+                  ░
+            ''')
 
     parser = argparse.ArgumentParser()
     parser.usage = '''
