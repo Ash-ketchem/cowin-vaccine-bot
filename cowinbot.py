@@ -336,7 +336,7 @@ class cowin():
         if res.status_code == 200:
             print(f'[+] 𝓫𝓸𝓸𝓴𝓲𝓷𝓰 𝓼𝓾𝓬𝓮𝓼𝓼𝓯𝓾𝓵𝓵 \n {json.dumps(res.json(),indent=4)}')
             try:
-                subprocess.call(f'termux-notification -c vaccine sheduled for {b['name']}!! --sound ', shell=True)
+                subprocess.call(f'termux-notification -c vaccine sheduled for {b["name"]}!! --sound', shell=True)
             except:
                 pass
             self.success_rate -= 1
