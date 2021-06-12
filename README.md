@@ -133,6 +133,13 @@ $ 𝘔𝘢𝘹𝘪𝘮𝘶𝘮 𝘳𝘦𝘶𝘴𝘦 𝘰𝘧 𝘢𝘶𝘵𝘩 �
      $  𝙥𝙮𝙩𝙝𝙤𝙣 𝙘𝙤𝙬𝙞𝙣𝙗𝙤𝙩.𝙥𝙮 -𝙛
      
              𝕦𝕤𝕖 -𝕗 𝕠𝕟 𝕤𝕖𝕔𝕠𝕟𝕕 𝕥𝕚𝕞𝕖 𝕥𝕠 𝕝𝕠𝕒𝕕 𝕡𝕣𝕖𝕧𝕚𝕠𝕦𝕤 𝕗𝕚𝕝𝕥𝕖𝕣𝕤
+             
+             
+   Additional tricks
+   
+    $ If you only want to edit some inputs when using the -f option ( By default -f flag will override arguments given along with it from command line ),
+     
+        ! Open the file "inputdata.txt" and edit the necessary fields without breaking the json structure
      
      
      
