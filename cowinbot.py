@@ -328,6 +328,8 @@ class cowin():
         "captcha":self.solve_captcha(),
         "dose": self.dose
                 }
+        
+        time.sleep(5)   # slowing down
 
         print(f'\n[+]booking detals {json.dumps(self.data, indent=4)}\n\n')
 
