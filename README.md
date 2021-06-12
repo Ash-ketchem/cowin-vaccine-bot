@@ -139,7 +139,7 @@ $ 𝘔𝘢𝘹𝘪𝘮𝘶𝘮 𝘳𝘦𝘶𝘴𝘦 𝘰𝘧 𝘢𝘶𝘵𝘩 �
    
     $ If you only want to edit some inputs when using the -f option ( By default -f flag will override arguments given along with it from command line ),
      
-        ! Open the file "inputdata.txt" and edit the necessary fields without breaking the json structure
+        ! Open the file "inputData.txt" and edit the necessary fields without breaking the json structure
      
      
      
