@@ -355,8 +355,8 @@ class cowin():
 
     def filter_sessions(self,ar,ar2):       # helper function to sort beneficiares and vaccine slots by age
 
-        slots_45 = list(filter(lambda x:x['age_limit']==45,ar))
-        slots_18 = list(filter(lambda x:x['age_limit']==18,ar))
+        slots_45 = list(filter(lambda x:x['age_limit']>=45,ar))
+        slots_18 = list(filter(lambda x:x['age_limit']>=18,ar))
         beneficiaries_45 =list(filter(lambda x:x['age']>=45,ar2))
         beneficiaries_18 = list(filter(lambda x:x['age']>=18,ar2))
         return (slots_45,slots_18,beneficiaries_45,beneficiaries_18)
