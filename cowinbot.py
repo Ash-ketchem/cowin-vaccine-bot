@@ -422,7 +422,9 @@ class cowin():
             try:
                 for s in slots_18:                                                          # tries to book vaccine for beneficiares(age >= 18) at the same center if possible
                     for i in range(s[f'dose{self.dose}']):
-                        final_list.append((beneficiaries_18[i],s))
+                        if beneficiaries_18[i].get('age')  >= s.get('age_limit'): 
+                            final_list.append((beneficiaries_18[i],s))
+                        
             except:
                 pass
 
