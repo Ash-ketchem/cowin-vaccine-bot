@@ -470,7 +470,9 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
         res = list(filter(lambda x:x['district_name'].lower() == district, res))
 
         print('[+] 𝓋𝒶𝒸𝒸𝒾𝓃𝒶𝓉𝒾𝑜𝓃 𝒸𝑒𝓃𝓉𝑒𝓇𝓈 𝓃𝑒𝒶𝓇 𝓎𝑜𝓊 𝒶𝓇𝑒 ::\n')                                                              # shows a list of vaccination centers near 10 km radius from your place
-        print(json.dumps(res,indent=4))
+        for i,center in enumerate(res):
+            print(f'{ i+1 } {center["name"]} \n \t\t[{center["location"]}]  \n')
+       
         if res:
             centers_list = [int(id) for id in input('enter preferred center id/s seperated by a space :: ').split(' ') ]
             return {'district_id':district_id, 'centers':centers_list}
