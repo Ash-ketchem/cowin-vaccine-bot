@@ -2,6 +2,8 @@
 
 termux-setup-storage
 
+pkg install termux-api
+
 echo 'installing git'
 
 pkg install git
