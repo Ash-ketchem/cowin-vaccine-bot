@@ -9,7 +9,7 @@ import argparse
 import subprocess
 import time
 from threading import Thread
-# import random 
+# import random
 
 
 class cowin():
@@ -80,7 +80,8 @@ class cowin():
             self.login()
         except :
             print('[-] login failed')
-            exit(0)
+            return
+            # exit(0)
 
 
     def login(self):                   #fetches auth token
@@ -160,12 +161,19 @@ class cowin():
                     print('[+] 𝓼𝓾𝓬𝓮𝓼𝓼𝓯𝓾𝓵𝓵𝔂 𝓯𝓮𝓽𝓬𝓱𝓮𝓭 𝓫𝓮𝓷𝓮𝓯𝓲𝓬𝓲𝓪𝓻𝓲𝓮𝓼!! ')
 
                 for beneficiary in res.json()['beneficiaries']:
-                    if not beneficiary['appointments']:
+                                        # need to filter beneficiaries based on vaccinated status
+                    if ( int(self.dose) == 1 and not beneficiary['appointments'] ) or ( int(self.dose) == 2 and  len(beneficiary['appointments']) == 1 ):
+
                         beneficiaries.append(
-                        {'id':beneficiary['beneficiary_reference_id'],
+                        {
+                        'id':beneficiary['beneficiary_reference_id'],
                         'name':beneficiary['name'],
-                        'age':2021 - int(beneficiary['birth_year'])
+                        'age':2021 - int(beneficiary['birth_year']),
+                        'appointment_id': beneficiary['appointments'][0]['appointment_id'] if beneficiary['appointments'] else None,
+                        'vaccine':beneficiary['vaccine'].lower(),
+                        'vaccination_status':beneficiary['vaccination_status']
                         })
+
 
                 self.efficiency = True
                 self.beneficiaries =  [list(filter(lambda x:x['age']>=45,beneficiaries))[0]] if self.test else beneficiaries
@@ -274,7 +282,7 @@ class cowin():
             if self.slots:
                 return True
             else:
-                print('\n[-] 𝓷𝓸 𝓼𝓵𝓸𝓽𝓼 𝓪𝓿𝓪𝓲𝓵𝓪𝓫𝓵𝓮...')
+                print('\n[-] 𝙣𝙤 𝙨𝙡𝙤𝙩𝙨 𝙖𝙫𝙖𝙞𝙡𝙖𝙗𝙡𝙚...')
                 return 0
 
         except json.decoder.JSONDecodeError:
@@ -328,17 +336,16 @@ class cowin():
         "captcha":self.solve_captcha(),
         "dose": self.dose
                 }
-        
-        time.sleep(5)   # slowing down
 
-        print(f'\n[+]booking detals {json.dumps(self.data, indent=4)}\n\n')
+        time.sleep(5)   # slowing down
 
         res = self.session.post(self.apis['shedule'],data = json.dumps(self.data))
 
         if res.status_code == 200:
             print(f'[+] 𝓫𝓸𝓸𝓴𝓲𝓷𝓰 𝓼𝓾𝓬𝓮𝓼𝓼𝓯𝓾𝓵𝓵 \n {json.dumps(res.json(),indent=4)}')
             try:
-                subprocess.call(f'termux-notification -c vaccine sheduled for {b["name"]}!! --sound', shell=True)
+                message= f"vaccine sheduled for {b['name']} => {s['vaccine']}"
+                subprocess.call(f'termux-notification -c "{message}" ',shell=True)
             except:
                 pass
             self.success_rate -= 1
@@ -347,6 +354,7 @@ class cowin():
             self.create_pdf(res.json()['appointment_confirmation_no'],b['name'])
         else:
             print(f"[-] 𝙛𝙖𝙞𝙡𝙚𝙙 𝙗𝙤𝙤𝙠𝙞𝙣𝙜 𝙫𝙖𝙘𝙘𝙞𝙣𝙚 𝙛𝙤𝙧 {b['name']}")
+            print(f"{json.dumps(res.json(),indent=4)}")
 
 
     def get_successRate(self):              # helper function to keep track of vaccinated beneficiares
@@ -379,10 +387,12 @@ class cowin():
 
         final_list = []
 
-        if self.vaccine_type:      #filters vaccine slots by vaccine type
-            if self.verbose:
+
+        if self.vaccine_type and int(self.dose) == 1:      #filters vaccine slots by vaccine type
+             if self.verbose:
                 print('[*] 𝒻𝒾𝓁𝓉𝑒𝓇𝒾𝓃𝑔 𝓈𝓁𝑜𝓉𝓈 𝒷𝓎 𝓋𝒶𝒸𝒸𝒾𝓃𝑒 𝓅𝓇𝑒𝒻𝑒𝓇𝑒𝓃𝒸𝑒𝓈...')
-            self.slots = list(filter(lambda x:x['vaccine'] in self.vaccine_type, self.slots))
+             self.slots = list(filter(lambda x:x['vaccine'] in self.vaccine_type, self.slots))
+
 
         if self.preferences:        #filters vaccine slots by center id
             if self.verbose:
@@ -416,15 +426,22 @@ class cowin():
             try:
                 for s in slots_45:                                                          # tries to book vaccine for beneficiares(age >= 45) at the same center if possible
                     for i in range(s[f'dose{self.dose}']):
-                        final_list.append((beneficiaries_45[i],s))
+                        if int(self.dose) == 2 and s['vaccine'] == beneficiaries_45[i]['vaccine']:
+                            final_list.append((beneficiaries_45[i],s))                  # lazy to refractor shit code here
+                        elif int(self.dose) == 1 :
+                            final_list.append((beneficiaries_45[i],s))
+
             except:
                 pass
             try:
                 for s in slots_18:                                                          # tries to book vaccine for beneficiares(age >= 18) at the same center if possible
                     for i in range(s[f'dose{self.dose}']):
-                        if beneficiaries_18[i].get('age')  >= s.get('age_limit'): 
-                            final_list.append((beneficiaries_18[i],s))
-                        
+                        if beneficiaries_18[i].get('age')  >= s.get('age_limit'):
+                            if int(self.dose )== 2 and s['vaccine'] == beneficiaries_18[i]['vaccine']:
+                                final_list.append((beneficiaries_18[i],s))
+                            elif int(self.dose) ==1 :
+                                final_list.append((beneficiaries_18[i],s))
+
             except:
                 pass
 
@@ -472,7 +489,7 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
         print('[+] 𝓋𝒶𝒸𝒸𝒾𝓃𝒶𝓉𝒾𝑜𝓃 𝒸𝑒𝓃𝓉𝑒𝓇𝓈 𝓃𝑒𝒶𝓇 𝓎𝑜𝓊 𝒶𝓇𝑒 ::\n')                                                              # shows a list of vaccination centers near 10 km radius from your place
         for i,center in enumerate(res):
             print(f'{ i+1 } {center["name"]} \n \t\t[{center["location"]}]  \n')
-       
+
         if res:
             centers_list = [int(id) for id in input('enter preferred center id/s seperated by a space :: ').split(' ') ]
             return {'district_id':district_id, 'centers':centers_list}
@@ -487,9 +504,9 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
 
 
 def main():
-    
+
     print("""
-   
+
 
               ██████
             ▒██    ▒
@@ -501,9 +518,9 @@ def main():
             ░  ░  ░
                   ░
            """)
-    
-    
-    
+
+
+
     parser = argparse.ArgumentParser()
     parser.usage = '''
         please read the README.MD
