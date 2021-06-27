@@ -500,7 +500,9 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
 
 
     except :
-        pass
+        print('[-] error , input values are incorrect')
+        exit(0)
+       
 
 
 
