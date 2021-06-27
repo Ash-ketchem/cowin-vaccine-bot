@@ -491,7 +491,8 @@ def getDistrictId(state,district,lat,long):      # helper function to create a l
             print(f'{ i+1 } {center["name"]} \n \t\t[{center["location"]}]  \n')
 
         if res:
-            centers_list = [int(id) for id in input('enter preferred center id/s seperated by a space :: ').split(' ') ]
+            centers_list = [res[int(id)-1].get('center_id') for id in input('enter preferred center id/s seperated by a space :: ').split(' ') ]
+            #centers_list = [int(id) for id in input('enter preferred center id/s seperated by a space :: ').split(' ') ]
             return {'district_id':district_id, 'centers':centers_list}
         else:
             print('[-] latitude and longitude might be wrong!!')
