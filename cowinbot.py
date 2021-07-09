@@ -424,7 +424,7 @@ class cowin():
 
 
             try:
-                for s in slots_45:                                                          # tries to book vaccine for beneficiares(age >= 45) at the same center if possible
+                for s in slots_18:                                                          # tries to book vaccine for beneficiares(age >= 45) at the same center if possible
                     for i in range(s[f'dose{self.dose}']):
                         if int(self.dose) == 2 and s['vaccine'] == beneficiaries_45[i]['vaccine']:
                             final_list.append((beneficiaries_45[i],s))                  # lazy to refractor shit code here
