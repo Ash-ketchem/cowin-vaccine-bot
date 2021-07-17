@@ -490,7 +490,7 @@ class cowin:
         slots_18 = list(
             filter(lambda x: x["age_limit"] >= 18 and x["age_limit"] < 45, ar)
         )
-        slots_all = list(filter(lambda x: x["allow_all_age"], ar))
+        slots_all = list(filter(lambda x: x.get("allow_all_age"), ar))
 
         beneficiaries_45 = list(filter(lambda x: x["age"] >= 45, ar2))
         beneficiaries_18 = list(filter(lambda x: x["age"] >= 18 and x["age"] < 45, ar2))
