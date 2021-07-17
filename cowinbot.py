@@ -607,8 +607,8 @@ class cowin:
                 except:
                     pass
 
-                print(json.dumps(final_list, indent=4))
-                input()
+#                 print(json.dumps(final_list, indent=4))
+#                 input()
 
             else:
 
