@@ -881,8 +881,10 @@ def main():
 
 if __name__ == "__main__":
 
-    main()
+#     main()
     try:
         main()
     except Exception as e:
         print(f"\nexiting program ... with error message =>{e}")
+        subprocess.call('rm token.txt && touch token.txt', shell =  True)
+        main()
