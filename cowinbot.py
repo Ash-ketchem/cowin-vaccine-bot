@@ -252,6 +252,9 @@ class cowin:
                         if self.pincode
                         else f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/findByDistrict?district_id={self.dist_id}&date={date}"
                     )
+                    if self.verbose:
+                        print(url)
+                        
                     res = self.session.get(url)
 
                     if res.ok:
