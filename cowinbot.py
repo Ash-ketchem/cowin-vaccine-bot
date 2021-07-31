@@ -456,7 +456,7 @@ class cowin:
             "dose": self.dose,
         }
 
-        return
+        
 
         time.sleep(5)  # slowing down
 
